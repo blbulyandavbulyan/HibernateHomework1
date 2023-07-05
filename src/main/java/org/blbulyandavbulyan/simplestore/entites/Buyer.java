@@ -19,7 +19,7 @@ public class Buyer {
     /**
      * ИД покупателя
      */
-    @Column(name = "id")
+    @Column(name = "buyer_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long id;
