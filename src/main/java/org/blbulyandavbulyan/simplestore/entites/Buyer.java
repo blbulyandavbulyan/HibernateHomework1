@@ -1,7 +1,6 @@
 package org.blbulyandavbulyan.simplestore.entites;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,7 +12,6 @@ import java.util.List;
  */
 @Entity
 @Table(name = "buyers")
-@AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
@@ -35,4 +33,8 @@ public class Buyer {
      */
     @OneToMany(mappedBy = "buyer")
     private List<BoughtItem> boughtItems;
+
+    public Buyer(String name) {
+        this.name = name;
+    }
 }
