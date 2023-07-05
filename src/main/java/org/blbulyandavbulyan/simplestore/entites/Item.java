@@ -20,7 +20,7 @@ public class Item {
      * ИД товара в базе
      */
     @Id
-    @Column(name = "id")
+    @Column(name = "item_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     /**
