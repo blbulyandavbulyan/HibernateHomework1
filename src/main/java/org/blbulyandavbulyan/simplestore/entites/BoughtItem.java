@@ -40,4 +40,10 @@ public class BoughtItem {
      */
     @Column(name = "price", nullable = false)
     private Long price;
+
+    public BoughtItem(Item boughtItem, Buyer buyer, Long price) {
+        this.boughtItem = boughtItem;
+        this.buyer = buyer;
+        this.price = price;
+    }
 }
