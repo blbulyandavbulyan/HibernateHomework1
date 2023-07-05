@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 /**
  * Данный класс предоставляет сущность покупателя, у которого есть ИД и имя
  */
@@ -19,13 +21,18 @@ public class Buyer {
     /**
      * ИД покупателя
      */
-    @Column(name = "buyer_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "buyer_id")
     private Long id;
     /**
      * Имя покупателя
      */
     @Column(name = "name")
     private String name;
+    /**
+     * Список купленных пользователем товаров
+     */
+    @OneToMany(mappedBy = "buyer")
+    private List<BoughtItem> boughtItems;
 }
