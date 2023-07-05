@@ -1,10 +1,7 @@
 package org.blbulyandavbulyan.simplestore.entites;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 /**
  * Данный класс предоставляет сущность для товара у которого есть ИД, название и текущая цена
@@ -13,7 +10,6 @@ import lombok.Setter;
 @Table(name = "items")
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
 public class Item {
     /**
@@ -33,4 +29,8 @@ public class Item {
      */
     @Column(name = "price", nullable = false)
     private Long price;
+    public Item(String title, Long price) {
+        this.title = title;
+        this.price = price;
+    }
 }
