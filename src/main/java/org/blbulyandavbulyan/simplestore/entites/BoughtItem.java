@@ -38,6 +38,6 @@ public class BoughtItem {
     /**
      * Цена на момент покупки
      */
-    @Column(name = "price")
+    @Column(name = "price", nullable = false)
     private Long price;
 }

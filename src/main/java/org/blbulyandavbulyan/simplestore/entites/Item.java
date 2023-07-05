@@ -26,11 +26,11 @@ public class Item {
     /**
      * Название товара
      */
-    @Column(name = "title")
+    @Column(name = "title", nullable = false)
     private String title;
     /**
      * Текущая цена
      */
-    @Column(name = "price")
+    @Column(name = "price", nullable = false)
     private Long price;
 }
