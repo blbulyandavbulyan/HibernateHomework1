@@ -14,6 +14,7 @@ public interface IStore {
      * Получить купленный покупателем продукты
      * @param name имя покупателя
      * @return коллекцию купленных продуктов или пустую коллекцию, если таковых нет
+     * @throws org.blbulyandavbulyan.simplestore.services.exceptions.ConsumerNotFoundException если нет покупателя с таким именем
      */
     Collection<BoughtProduct> getBoughtProductsByConsumerName(String name);
 
@@ -21,6 +22,7 @@ public interface IStore {
      * Получить покупателей, купивших продукт с заданным именем
      * @param title имя продукта
      * @return коллекция покупателей или пустая коллекция, если товар никто не купил
+     * @throws org.blbulyandavbulyan.simplestore.services.exceptions.ProductNotFoundException если нет товара с таким названием
      */
     Collection<Consumer> getConsumersByProductTitle(String title);
 
@@ -42,8 +44,8 @@ public interface IStore {
      * Покупает продукт
      * @param consumerId ИД покупателя, который должен купить продукт
      * @param productId ИД продукта, который нужно купить
-     * @throws IllegalArgumentException если consumer с consumerId не найден
-     * @throws IllegalArgumentException если product с productId не найден
+     * @throws org.blbulyandavbulyan.simplestore.services.exceptions.ConsumerNotFoundException если consumer с consumerId не найден
+     * @throws org.blbulyandavbulyan.simplestore.services.exceptions.ProductNotFoundException если product с productId не найден
      * @return купленный продукт
      */
     BoughtProduct buy(Long consumerId, Long productId);
