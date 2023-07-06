@@ -7,17 +7,17 @@ import lombok.*;
  * Данный класс предоставляет сущность для товара у которого есть ИД, название и текущая цена
  */
 @Entity
-@Table(name = "items")
+@Table(name = "products")
 @Getter
 @Setter
 @NoArgsConstructor
 @ToString
-public class Item {
+public class Product {
     /**
      * ИД товара в базе
      */
     @Id
-    @Column(name = "item_id")
+    @Column(name = "product_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     /**
@@ -30,7 +30,7 @@ public class Item {
      */
     @Column(name = "price", nullable = false)
     private Long price;
-    public Item(String title, Long price) {
+    public Product(String title, Long price) {
         this.title = title;
         this.price = price;
     }
