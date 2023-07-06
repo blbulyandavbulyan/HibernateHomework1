@@ -18,12 +18,15 @@ import java.util.function.Function;
  * Использует EntityManagerFactory для сохранения сущностей в базу
  */
 public class Store implements IStore {
+    /**
+     * Фабрика, с помощью которой будут создаваться EntityManger для управления сущностями в базе
+     */
     private final EntityManagerFactory emf;
 
     /**
      * Создаёт экземпляр магазина
-     *
      * @param emf EntityManagerFactory, которая будет использоваться магазином
+     * @throws IllegalArgumentException если emf null или закрыта
      */
     public Store(EntityManagerFactory emf) {
         if (emf == null || !emf.isOpen())
