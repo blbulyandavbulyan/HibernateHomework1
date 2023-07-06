@@ -34,18 +34,26 @@ public class Store implements IStore {
     @Override
     public Collection<BoughtProduct> getBoughtProductsByConsumerName(String name) {
         return runForEntityManager(em -> {
-            var selectBoughtProductsQuery = em.createQuery("SELECT c.boughtProducts FROM Consumer c WHERE c.name = :name", BoughtProduct.class);
-            selectBoughtProductsQuery.setParameter("name", name);
-            return selectBoughtProductsQuery.getResultList();
+            var checkExistConsumerQuery = em.createQuery("SELECT COUNT(c) FROM Consumer c WHERE c.name = :name", Long.class);
+            checkExistConsumerQuery.setParameter("name", name);
+            if (checkExistConsumerQuery.getSingleResult() > 0) {
+                var selectBoughtProductsQuery = em.createQuery("SELECT c.boughtProducts FROM Consumer c WHERE c.name = :name", BoughtProduct.class);
+                selectBoughtProductsQuery.setParameter("name", name);
+                return selectBoughtProductsQuery.getResultList();
+            } else throw new ConsumerNotFoundException("покупатель с именем" + name + " не найден", name);
         });
     }
 
     @Override
     public Collection<Consumer> getConsumersByProductTitle(String title) {
         return runForEntityManager(em -> {
-            var selectConsumersByProductTitleQuery = em.createQuery("SELECT bp.consumer FROM BoughtProduct bp WHERE bp.product.title = :title", Consumer.class);
-            selectConsumersByProductTitleQuery.setParameter("title", title);
-            return selectConsumersByProductTitleQuery.getResultList();
+            var checkExistConsumerQuery = em.createQuery("SELECT COUNT(p) FROM Product p WHERE p.title = :title", Long.class);
+            checkExistConsumerQuery.setParameter("name", title);
+            if (checkExistConsumerQuery.getSingleResult() > 0) {
+                var selectConsumersByProductTitleQuery = em.createQuery("SELECT bp.consumer FROM BoughtProduct bp WHERE bp.product.title = :title", Consumer.class);
+                selectConsumersByProductTitleQuery.setParameter("title", title);
+                return selectConsumersByProductTitleQuery.getResultList();
+            } else throw new ProductNotFoundException("продукт с названием " + title + " не найден!", title);
         });
     }
 
