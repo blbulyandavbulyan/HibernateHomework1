@@ -40,8 +40,8 @@ public interface IStore {
     /**
      * Покупает продукт
      * @param consumerId ИД покупателя, который должен купить продукт
-     * @param itemId ИД продукта, который нужно купить
+     * @param productId ИД продукта, который нужно купить
      * @return купленный продукт
      */
-    BoughtItem buy(Long consumerId, Long itemId);
+    BoughtItem buy(Long consumerId, Long productId);
 }
