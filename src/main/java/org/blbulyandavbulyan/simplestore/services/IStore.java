@@ -2,6 +2,7 @@ package org.blbulyandavbulyan.simplestore.services;
 
 import org.blbulyandavbulyan.simplestore.entites.BoughtProduct;
 import org.blbulyandavbulyan.simplestore.entites.Consumer;
+import org.blbulyandavbulyan.simplestore.entites.Product;
 
 import java.util.Collection;
 
@@ -46,4 +47,16 @@ public interface IStore {
      * @return купленный продукт
      */
     BoughtProduct buy(Long consumerId, Long productId);
+
+    /**
+     * Добавляет продукт в магазин
+     * @param product продукт, который нужно добавить
+     */
+    void addProduct(Product product);
+
+    /**
+     * Добавляет покупателя в магазин
+     * @param consumer покупатель, которого нужно добавить
+     */
+    void addConsumer(Consumer consumer);
 }
