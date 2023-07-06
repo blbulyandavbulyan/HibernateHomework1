@@ -37,8 +37,9 @@ public class Store implements IStore{
     @Override
     public Collection<Consumer> getConsumersByProductTitle(String title) {
         return runForEntityManager(em->{
-            // TODO: 06.07.2023 доделать здесь
-            return null;
+            var selectConsumersByProductTitleQuery = em.createQuery("SELECT bp.consumer FROM BoughtProduct bp WHERE bp.product.title = :title", Consumer.class);
+            selectConsumersByProductTitleQuery.setParameter("title", title);
+            return selectConsumersByProductTitleQuery.getResultList();
         });
     }
 
