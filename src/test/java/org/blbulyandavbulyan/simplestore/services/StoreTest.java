@@ -14,12 +14,8 @@ public class StoreTest extends IStoreTest{
     private final static EntityManagerFactory emf = ORMUtils.createEntityManagerFactory();
     @BeforeEach
     void setUp() {
-        try {
-            dropTables(emf);
-            createTables(emf);
-            store = new Store(emf);
-        } catch (IOException | URISyntaxException e) {
-            throw new RuntimeException(e);
-        }
+        dropTables(emf);
+        createTables(emf);
+        store = new Store(emf);
     }
 }

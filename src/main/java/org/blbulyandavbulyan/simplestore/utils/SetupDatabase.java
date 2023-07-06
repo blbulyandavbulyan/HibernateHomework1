@@ -12,14 +12,22 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class SetupDatabase {
-    public static void main(String[] args) throws IOException, URISyntaxException {
+    public static void main(String[] args) {
         createTables(ORMUtils.createEntityManagerFactory());
     }
-    public static void createTables(EntityManagerFactory entityManagerFactory) throws IOException, URISyntaxException {
-        executeSqlFromResourceFile(entityManagerFactory, "sql/setup.sql");
+    public static void createTables(EntityManagerFactory entityManagerFactory){
+        try {
+            executeSqlFromResourceFile(entityManagerFactory, "sql/setup.sql");
+        } catch (URISyntaxException | IOException e) {
+            throw new RuntimeException(e);
+        }
     }
-    public static void dropTables(EntityManagerFactory entityManagerFactory) throws URISyntaxException, IOException {
-        executeSqlFromResourceFile(entityManagerFactory, "sql/droptables.sql");
+    public static void dropTables(EntityManagerFactory entityManagerFactory){
+        try {
+            executeSqlFromResourceFile(entityManagerFactory, "sql/droptables.sql");
+        } catch (URISyntaxException | IOException e) {
+            throw new RuntimeException(e);
+        }
     }
     public static void executeSqlFromResourceFile(EntityManagerFactory entityManagerFactory, String resourceName) throws URISyntaxException, IOException {
         URL sqlFileURL = SetupDatabase.class.getClassLoader().getResource(resourceName);
