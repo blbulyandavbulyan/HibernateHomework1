@@ -3,6 +3,8 @@ package org.blbulyandavbulyan.simplestore.entites;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 /**
  * Данный класс предоставляет сущность для товара у которого есть ИД, название и текущая цена
  */
@@ -30,6 +32,8 @@ public class Product {
      */
     @Column(name = "price", nullable = false)
     private Long price;
+    @OneToMany(mappedBy = "product")
+    private List<BoughtProduct> boughtProducts;
     public Product(String title, Long price) {
         this.title = title;
         this.price = price;
