@@ -41,6 +41,8 @@ public interface IStore {
      * Покупает продукт
      * @param consumerId ИД покупателя, который должен купить продукт
      * @param productId ИД продукта, который нужно купить
+     * @throws IllegalArgumentException если consumer с consumerId не найден
+     * @throws IllegalArgumentException если product с productId не найден
      * @return купленный продукт
      */
     BoughtItem buy(Long consumerId, Long productId);
