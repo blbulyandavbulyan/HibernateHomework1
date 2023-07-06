@@ -112,7 +112,7 @@ public class Store implements IStore {
             try {
                 result = transactionalFunction.apply(em);//запускаем нашу функцию внутри транзакции
                 transaction.commit();//сюда дошли, значит всё ок, коммитим
-            } catch (Throwable throwable) {
+            } catch (Exception throwable) {
                 //если у нас что-то сломалось, откатываем транзакцию
                 transaction.rollback();
                 throw throwable;//бросаем дальше, тут мы это обработать не можем
