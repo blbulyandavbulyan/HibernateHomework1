@@ -1,20 +1,19 @@
 package org.blbulyandavbulyan.simplestore.entites;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 /**
  * Данный класс предоставляет сущность записи о купленном товаре
  */
 @Entity
-@Table(name = "bought_items")
+@Table(name = "bought_products")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
+@ToString
+@EqualsAndHashCode(exclude = {"id"})
 public class BoughtProduct {
     /**
      * ИД записи о купленном товаре

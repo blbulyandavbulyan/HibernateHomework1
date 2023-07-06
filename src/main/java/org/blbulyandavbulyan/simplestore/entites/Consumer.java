@@ -1,6 +1,7 @@
 package org.blbulyandavbulyan.simplestore.entites;
 
 import jakarta.persistence.*;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,10 +12,11 @@ import java.util.List;
  * Данный класс предоставляет сущность покупателя, у которого есть ИД и имя
  */
 @Entity
-@Table(name = "buyers")
+@Table(name = "consumers")
 @NoArgsConstructor
 @Getter
 @Setter
+@EqualsAndHashCode(exclude = {"id", "boughtProducts"})
 public class Consumer {
     /**
      * ИД покупателя

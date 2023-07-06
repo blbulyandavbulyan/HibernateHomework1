@@ -14,6 +14,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @ToString
+@EqualsAndHashCode(exclude = {"id", "boughtProducts"})
 public class Product {
     /**
      * ИД товара в базе
