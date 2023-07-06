@@ -33,6 +33,7 @@ public class Store implements IStore {
 
     @Override
     public Collection<BoughtProduct> getBoughtProductsByConsumerName(String name) {
+        if(name == null)throw new IllegalArgumentException("name is null!");
         return runForEntityManager(em -> {
             var checkExistConsumerQuery = em.createQuery("SELECT COUNT(c) FROM Consumer c WHERE c.name = :name", Long.class);
             checkExistConsumerQuery.setParameter("name", name);
@@ -46,6 +47,7 @@ public class Store implements IStore {
 
     @Override
     public Collection<Consumer> getConsumersByProductTitle(String title) {
+        if(title == null)throw new IllegalArgumentException("title is null!");
         return runForEntityManager(em -> {
             var checkExistConsumerQuery = em.createQuery("SELECT COUNT(p) FROM Product p WHERE p.title = :title", Long.class);
             checkExistConsumerQuery.setParameter("title", title);
@@ -59,6 +61,7 @@ public class Store implements IStore {
 
     @Override
     public boolean deleteConsumer(String name) {
+        if(name == null)throw new IllegalArgumentException("name is null!");
         return runInTransaction((em) -> {
             Query deleteConsumerQuery = em.createQuery("DELETE FROM Consumer c WHERE c.name = :name");
             int result = deleteConsumerQuery.setParameter("name", name).executeUpdate();
@@ -68,6 +71,7 @@ public class Store implements IStore {
 
     @Override
     public boolean deleteProduct(String title) {
+        if(title == null)throw new IllegalArgumentException("title is null!");
         return runInTransaction((em) -> {
             Query deleteProductQuery = em.createQuery("DELETE FROM Product p WHERE p.title = :title");
             int result = deleteProductQuery.setParameter("title", title).executeUpdate();
@@ -77,6 +81,8 @@ public class Store implements IStore {
 
     @Override
     public BoughtProduct buy(Long consumerId, Long productId) {
+        if(consumerId == null)throw new IllegalArgumentException("consumerId is null!");
+        if(productId == null)throw new IllegalArgumentException("productId is null!");
         return runInTransaction((em) -> {
             Consumer consumer = Optional.ofNullable(em.find(Consumer.class, consumerId))
                     .orElseThrow(() -> new ConsumerNotFoundException("consumer with id" + consumerId + " not found!", consumerId));
@@ -91,6 +97,7 @@ public class Store implements IStore {
 
     @Override
     public void addProduct(Product product) {
+        if(product == null)throw new IllegalArgumentException("product is null!");
         runInTransaction(em -> {
             em.persist(product);
             //Поскольку у нас тип у лямды Function, мы обязательно должны что-то вернуть,
@@ -101,6 +108,7 @@ public class Store implements IStore {
 
     @Override
     public void addConsumer(Consumer consumer) {
+        if(consumer == null)throw new IllegalArgumentException("consumer is null!");
         runInTransaction(em -> {
             em.persist(consumer);
             return null;
