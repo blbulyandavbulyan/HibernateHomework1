@@ -15,7 +15,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class BoughtItem {
+public class BoughtProduct {
     /**
      * ИД записи о купленном товаре
      */
@@ -41,7 +41,7 @@ public class BoughtItem {
     @Column(name = "price", nullable = false)
     private Long price;
 
-    public BoughtItem(Product boughtProduct, Consumer consumer, Long price) {
+    public BoughtProduct(Product boughtProduct, Consumer consumer, Long price) {
         this.boughtProduct = boughtProduct;
         this.consumer = consumer;
         this.price = price;

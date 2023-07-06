@@ -1,6 +1,6 @@
 package org.blbulyandavbulyan.simplestore.services;
 
-import org.blbulyandavbulyan.simplestore.entites.BoughtItem;
+import org.blbulyandavbulyan.simplestore.entites.BoughtProduct;
 import org.blbulyandavbulyan.simplestore.entites.Consumer;
 
 import java.util.Collection;
@@ -14,7 +14,7 @@ public interface IStore {
      * @param name имя покупателя
      * @return коллекцию купленных продуктов или пустую коллекцию, если таковых нет
      */
-    Collection<BoughtItem> getBoughtProductsByConsumerName(String name);
+    Collection<BoughtProduct> getBoughtProductsByConsumerName(String name);
 
     /**
      * Получить покупателей, купивших продукт с заданным именем
@@ -45,5 +45,5 @@ public interface IStore {
      * @throws IllegalArgumentException если product с productId не найден
      * @return купленный продукт
      */
-    BoughtItem buy(Long consumerId, Long productId);
+    BoughtProduct buy(Long consumerId, Long productId);
 }

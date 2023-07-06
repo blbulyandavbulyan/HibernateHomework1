@@ -3,7 +3,7 @@ package org.blbulyandavbulyan.simplestore.services;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Query;
-import org.blbulyandavbulyan.simplestore.entites.BoughtItem;
+import org.blbulyandavbulyan.simplestore.entites.BoughtProduct;
 import org.blbulyandavbulyan.simplestore.entites.Consumer;
 import org.blbulyandavbulyan.simplestore.entites.Product;
 
@@ -26,9 +26,9 @@ public class Store implements IStore{
         this.emf = emf;
     }
     @Override
-    public Collection<BoughtItem> getBoughtProductsByConsumerName(String name) {
+    public Collection<BoughtProduct> getBoughtProductsByConsumerName(String name) {
         return runForEntityManager(em->{
-            var selectBoughtProductsQuery = em.createQuery("SELECT c.boughtProducts FROM Consumer c WHERE c.name = :name", BoughtItem.class);
+            var selectBoughtProductsQuery = em.createQuery("SELECT c.boughtProducts FROM Consumer c WHERE c.name = :name", BoughtProduct.class);
             selectBoughtProductsQuery.setParameter("name", name);
             return selectBoughtProductsQuery.getResultList();
         });
@@ -36,8 +36,9 @@ public class Store implements IStore{
 
     @Override
     public Collection<Consumer> getConsumersByProductTitle(String title) {
-        // TODO: 06.07.2023 Реализовать этот метод
-        return null;
+        return runForEntityManager(em->{
+            var selectConsumersByProductTitleQuery = em.createQuery("SELECT c FROM Consumer c WHERE :title ")
+        })
     }
 
     @Override
@@ -59,16 +60,16 @@ public class Store implements IStore{
     }
 
     @Override
-    public BoughtItem buy(Long consumerId, Long productId) {
+    public BoughtProduct buy(Long consumerId, Long productId) {
         return runInTransaction((em)->{
            Consumer consumer = Optional.ofNullable(em.find(Consumer.class, consumerId))
                    .orElseThrow(()-> new IllegalArgumentException("consumer not found!"));
            Product product = Optional.ofNullable(em.find(Product.class, productId))
                    .orElseThrow(()->new IllegalArgumentException("product not found!"));
            //на данном этапе у нас точно существует и продукт и покупатель
-            BoughtItem boughtItem = new BoughtItem(product, consumer, product.getPrice());//создаём запись о купленном продукте
-            em.persist(boughtItem);//сохраняем запись о покупке в базу
-            return boughtItem;
+            BoughtProduct boughtProduct = new BoughtProduct(product, consumer, product.getPrice());//создаём запись о купленном продукте
+            em.persist(boughtProduct);//сохраняем запись о покупке в базу
+            return boughtProduct;
         });
     }
 

@@ -32,7 +32,7 @@ public class Consumer {
      * Список купленных пользователем товаров
      */
     @OneToMany(mappedBy = "consumer")
-    private List<BoughtItem> boughtItems;
+    private List<BoughtProduct> boughtProducts;
 
     public Consumer(String name) {
         this.name = name;
