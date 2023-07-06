@@ -65,33 +65,27 @@ public abstract class IStoreTest {
     }
 
 //    @Test
-//    void testDeleteConsumer() {
-//        // Создание тестовых данных
-//        Consumer consumer = new Consumer("John");
-//
-//        // Добавление покупателя
-//        store.addConsumer(consumer);
-//
-//        // Выполнение метода, который тестируем
-//        boolean result = store.deleteConsumer("John");
-//
-//        // Проверка результатов
-//        Assertions.assertTrue(result);
-//        Assertions.assertEquals(0, store.getAllConsumers().size());
-//    }
-//    @Test
-//    void testDeleteProduct() {
-//        // Создание тестовых данных
-//        Product product = new Product("Apple", 299L);
-//
-//        // Добавление продукта
-//        store.addProduct(product);
-//
-//        // Выполнение метода, который тестируем
-//        boolean result = store.deleteProduct("Apple");
-//
-//        // Проверка результатов
-//        Assertions.assertTrue(result);
-//        Assertions.assertEquals(0, store.getAllProducts().size());
-//    }
+    void testDeleteConsumer() {
+        // Создание тестовых данных
+        Consumer consumer = new Consumer("John");
+        // Добавление покупателя
+        store.addConsumer(consumer);
+        // Выполнение метода, который тестируем
+        boolean result = store.deleteConsumer("John");
+        // Проверка результатов
+        Assertions.assertTrue(result);
+        // TODO: 06.07.2023 добавить проверку что такой consumer удалился из магазина
+    }
+    @Test
+    void testDeleteProduct() {
+        // Создание тестовых данных
+        Product product = new Product("Apple", 299L);
+        // Добавление продукта
+        store.addProduct(product);
+        // Выполнение метода, который тестируем
+        boolean result = store.deleteProduct("Apple");
+        // Проверка результатов
+        Assertions.assertTrue(result);
+        // TODO: 06.07.2023 добавить проверку что такой product действительно удалился из магазина
+    }
 }
