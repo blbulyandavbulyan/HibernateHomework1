@@ -12,10 +12,11 @@ import java.util.Optional;
 import java.util.function.Function;
 
 /**
- * Предоставляет базовую имплементацию интерфейса IStore
+ * Предоставляет базовую имплементацию интерфейса IStore.
+ * Использует EntityManagerFactory для сохранения сущностей в базу
  */
 public class Store implements IStore {
-    private EntityManagerFactory emf;
+    private final EntityManagerFactory emf;
 
     /**
      * Создаёт экземпляр магазина
@@ -82,7 +83,9 @@ public class Store implements IStore {
     public void addProduct(Product product) {
         runInTransaction(em -> {
             em.persist(product);
-            return null;//поскольку у нас тип у лямды Function, мы обязательно должны что-то вернуть, возвращаем null, т.к. больше нечего вернуть
+            //Поскольку у нас тип у лямды Function, мы обязательно должны что-то вернуть,
+            // возвращаем null, т.к. больше нечего вернуть
+            return null;
         });
     }
 
