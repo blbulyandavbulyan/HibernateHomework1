@@ -46,6 +46,7 @@ public interface IStore {
      * @param productId ИД продукта, который нужно купить
      * @throws org.blbulyandavbulyan.simplestore.services.exceptions.ConsumerNotFoundException если consumer с consumerId не найден
      * @throws org.blbulyandavbulyan.simplestore.services.exceptions.ProductNotFoundException если product с productId не найден
+     * @throws IllegalArgumentException если consumerId или productId null
      * @return купленный продукт
      */
     BoughtProduct buy(Long consumerId, Long productId);
