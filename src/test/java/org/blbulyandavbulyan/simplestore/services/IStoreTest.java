@@ -1,10 +1,8 @@
 package org.blbulyandavbulyan.simplestore.services;
 
-import jakarta.persistence.EntityManagerFactory;
 import org.blbulyandavbulyan.simplestore.entites.BoughtProduct;
 import org.blbulyandavbulyan.simplestore.entites.Consumer;
 import org.blbulyandavbulyan.simplestore.entites.Product;
-import org.blbulyandavbulyan.simplestore.utils.ORMUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
