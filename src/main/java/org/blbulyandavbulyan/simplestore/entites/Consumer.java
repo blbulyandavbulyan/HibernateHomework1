@@ -21,7 +21,7 @@ public class Consumer {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "buyer_id")
+    @Column(name = "consumer_id")
     private Long id;
     /**
      * Имя покупателя
@@ -31,7 +31,7 @@ public class Consumer {
     /**
      * Список купленных пользователем товаров
      */
-    @OneToMany(mappedBy = "buyer")
+    @OneToMany(mappedBy = "consumer")
     private List<BoughtItem> boughtItems;
 
     public Consumer(String name) {
