@@ -11,8 +11,6 @@ import java.util.Collection;
 
 public abstract class IStoreTest {
     protected IStore store;
-    @BeforeEach
-    abstract void setUp();
 
     @Test
     void testGetBoughtProductsByConsumerName() {
@@ -62,7 +60,7 @@ public abstract class IStoreTest {
         Assertions.assertTrue(consumers.contains(consumer2));
     }
 
-//    @Test
+    @Test
     void testDeleteConsumer() {
         // Создание тестовых данных
         Consumer consumer = new Consumer("John");

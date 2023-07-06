@@ -12,7 +12,6 @@ import static org.blbulyandavbulyan.simplestore.utils.SetupDatabase.dropTables;
 
 public class StoreTest extends IStoreTest{
     private final static EntityManagerFactory emf = ORMUtils.createEntityManagerFactory();
-    @Override
     @BeforeEach
     void setUp() {
         try {
