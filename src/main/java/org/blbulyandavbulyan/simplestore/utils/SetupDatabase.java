@@ -9,6 +9,7 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class SetupDatabase {
     public static void main(String[] args) throws IOException, URISyntaxException {
@@ -22,13 +23,15 @@ public class SetupDatabase {
     }
     public static void executeSqlFromResourceFile(EntityManagerFactory entityManagerFactory, String resourceName) throws URISyntaxException, IOException {
         URL sqlFileURL = SetupDatabase.class.getClassLoader().getResource(resourceName);
-        String sql = Files.lines(Path.of(sqlFileURL.toURI())).collect(Collectors.joining());
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-        var transaction = entityManager.getTransaction();
-        transaction.begin();
-        var query = entityManager.createNativeQuery(sql);
-        query.executeUpdate();
-        transaction.commit();
-        entityManager.close();
+        try(Stream<String> lines = Files.lines(Path.of(sqlFileURL.toURI()))){
+            String sql = lines.collect(Collectors.joining());
+            EntityManager entityManager = entityManagerFactory.createEntityManager();
+            var transaction = entityManager.getTransaction();
+            transaction.begin();
+            var query = entityManager.createNativeQuery(sql);
+            query.executeUpdate();
+            transaction.commit();
+            entityManager.close();
+        }
     }
 }
