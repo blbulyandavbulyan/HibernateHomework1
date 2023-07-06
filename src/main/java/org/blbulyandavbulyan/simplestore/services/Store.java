@@ -40,7 +40,7 @@ public class Store implements IStore {
                 var selectBoughtProductsQuery = em.createQuery("SELECT c.boughtProducts FROM Consumer c WHERE c.name = :name", BoughtProduct.class);
                 selectBoughtProductsQuery.setParameter("name", name);
                 return selectBoughtProductsQuery.getResultList();
-            } else throw new ConsumerNotFoundException("покупатель с именем" + name + " не найден", name);
+            } else throw new ConsumerNotFoundException("покупатель с именем " + name + " не найден", name);
         });
     }
 
@@ -48,7 +48,7 @@ public class Store implements IStore {
     public Collection<Consumer> getConsumersByProductTitle(String title) {
         return runForEntityManager(em -> {
             var checkExistConsumerQuery = em.createQuery("SELECT COUNT(p) FROM Product p WHERE p.title = :title", Long.class);
-            checkExistConsumerQuery.setParameter("name", title);
+            checkExistConsumerQuery.setParameter("title", title);
             if (checkExistConsumerQuery.getSingleResult() > 0) {
                 var selectConsumersByProductTitleQuery = em.createQuery("SELECT bp.consumer FROM BoughtProduct bp WHERE bp.product.title = :title", Consumer.class);
                 selectConsumersByProductTitleQuery.setParameter("title", title);
