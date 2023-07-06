@@ -34,16 +34,16 @@ public class BoughtItem {
      */
     @ManyToOne
     @JoinColumn(name = "buyer_id")
-    private Buyer buyer;
+    private Consumer consumer;
     /**
      * Цена на момент покупки
      */
     @Column(name = "price", nullable = false)
     private Long price;
 
-    public BoughtItem(Item boughtItem, Buyer buyer, Long price) {
+    public BoughtItem(Item boughtItem, Consumer consumer, Long price) {
         this.boughtItem = boughtItem;
-        this.buyer = buyer;
+        this.consumer = consumer;
         this.price = price;
     }
 }

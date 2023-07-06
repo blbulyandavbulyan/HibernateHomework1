@@ -15,7 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Buyer {
+public class Consumer {
     /**
      * ИД покупателя
      */
@@ -34,7 +34,7 @@ public class Buyer {
     @OneToMany(mappedBy = "buyer")
     private List<BoughtItem> boughtItems;
 
-    public Buyer(String name) {
+    public Consumer(String name) {
         this.name = name;
     }
 }
