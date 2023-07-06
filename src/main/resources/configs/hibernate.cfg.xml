@@ -13,6 +13,6 @@
         <property name="current_session_context_class">thread</property>
         <mapping class="org.blbulyandavbulyan.simplestore.entites.Consumer"/>
         <mapping class="org.blbulyandavbulyan.simplestore.entites.Product"/>
-        <mapping class="org.blbulyandavbulyan.simplestore.entites.BoughtItem"/>
+        <mapping class="org.blbulyandavbulyan.simplestore.entites.BoughtProduct"/>
     </session-factory>
 </hibernate-configuration>
