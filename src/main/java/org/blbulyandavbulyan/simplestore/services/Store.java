@@ -6,6 +6,8 @@ import jakarta.persistence.Query;
 import org.blbulyandavbulyan.simplestore.entites.BoughtProduct;
 import org.blbulyandavbulyan.simplestore.entites.Consumer;
 import org.blbulyandavbulyan.simplestore.entites.Product;
+import org.blbulyandavbulyan.simplestore.services.exceptions.ConsumerNotFoundException;
+import org.blbulyandavbulyan.simplestore.services.exceptions.ProductNotFoundException;
 
 import java.util.Collection;
 import java.util.Optional;
@@ -69,9 +71,9 @@ public class Store implements IStore {
     public BoughtProduct buy(Long consumerId, Long productId) {
         return runInTransaction((em) -> {
             Consumer consumer = Optional.ofNullable(em.find(Consumer.class, consumerId))
-                    .orElseThrow(() -> new IllegalArgumentException("consumer not found!"));
+                    .orElseThrow(() -> new ConsumerNotFoundException("consumer with id" + consumerId + " not found!", consumerId));
             Product product = Optional.ofNullable(em.find(Product.class, productId))
-                    .orElseThrow(() -> new IllegalArgumentException("product not found!"));
+                    .orElseThrow(() -> new ProductNotFoundException("product with id " + productId + " not found!", productId));
             //на данном этапе у нас точно существует и продукт и покупатель
             BoughtProduct boughtProduct = new BoughtProduct(product, consumer, product.getPrice());//создаём запись о купленном продукте
             em.persist(boughtProduct);//сохраняем запись о покупке в базу
