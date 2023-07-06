@@ -1,10 +1,10 @@
 package org.blbulyandavbulyan.simplestore.repositories;
 
 import jakarta.persistence.EntityManagerFactory;
-import org.blbulyandavbulyan.simplestore.entites.Buyer;
+import org.blbulyandavbulyan.simplestore.entites.Consumer;
 
-public class BuyerRepository extends AbstractRepository<Buyer, Long> {
+public class BuyerRepository extends AbstractRepository<Consumer, Long> {
     public BuyerRepository(EntityManagerFactory entityManagerFactory) {
-        super(entityManagerFactory, Buyer.class);
+        super(entityManagerFactory, Consumer.class);
     }
 }
