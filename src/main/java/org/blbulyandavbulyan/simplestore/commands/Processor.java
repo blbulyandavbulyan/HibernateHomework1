@@ -1,5 +1,8 @@
 package org.blbulyandavbulyan.simplestore.commands;
 
+import org.blbulyandavbulyan.simplestore.commands.exceptions.IllegalArgumentCountException;
+import org.blbulyandavbulyan.simplestore.commands.exceptions.IllegalArgumentForCommandException;
+import org.blbulyandavbulyan.simplestore.commands.exceptions.IllegalCommandException;
 import org.blbulyandavbulyan.simplestore.entites.Product;
 import org.blbulyandavbulyan.simplestore.services.IStore;
 
@@ -44,18 +47,19 @@ public class Processor {
             }
             case "/buy" -> {
                 throwIfInvalidLength(splitCommand, 3);
-                Long consumerId = getLongFromStringOrThrow(splitCommand[1], () -> new IllegalArgumentException("ИД потребителя должно быть число типа long!"));
-                Long productId = getLongFromStringOrThrow(splitCommand[2], () -> new IllegalArgumentException("ИД продукта должно быть число типа long!"));
+                Long consumerId = getLongFromStringOrThrow(splitCommand[1], () -> new IllegalArgumentForCommandException("ИД потребителя должно быть число типа long!"));
+                Long productId = getLongFromStringOrThrow(splitCommand[2], () -> new IllegalArgumentForCommandException("ИД продукта должно быть число типа long!"));
                 var boughtProduct = iStore.buy(consumerId, productId);
                 Product product = boughtProduct.getProduct();
                 ps.printf("Пользователь %s купил продукт %s по цене %d\n", boughtProduct.getConsumer().getName(), product.getTitle(), product.getPrice());
             }
+            default -> throw new IllegalCommandException("неверная команда " + action);
         }
     }
 
     private void throwIfInvalidLength(String[] arr, int requiredLength) {
         if (arr.length != requiredLength)
-            throw new IllegalArgumentException("Неверное количество частей команды, должно быть " + requiredLength);
+            throw new IllegalArgumentCountException("Неверное количество частей команды, должно быть " + requiredLength);
     }
 
     private <T extends Throwable> Long getLongFromStringOrThrow(String l, Supplier<T> throwableSupplier) throws T {
