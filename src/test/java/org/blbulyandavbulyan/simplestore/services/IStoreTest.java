@@ -3,6 +3,8 @@ package org.blbulyandavbulyan.simplestore.services;
 import org.blbulyandavbulyan.simplestore.entites.BoughtProduct;
 import org.blbulyandavbulyan.simplestore.entites.Consumer;
 import org.blbulyandavbulyan.simplestore.entites.Product;
+import org.blbulyandavbulyan.simplestore.services.exceptions.ConsumerNotFoundException;
+import org.blbulyandavbulyan.simplestore.services.exceptions.ProductNotFoundException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -10,7 +12,14 @@ import java.util.Collection;
 
 public abstract class IStoreTest {
     protected IStore store;
-
+    @Test
+    void getBoughtProductsByConsumerNameShouldThrowExceptionIfConsumerNotExists(){
+        Assertions.assertThrows(ConsumerNotFoundException.class, ()->store.getBoughtProductsByConsumerName("Ahalaymahalay"));
+    }
+    @Test
+    void getConsumersByProductTitleShouldThrowExceptionIfProductNotExists(){
+        Assertions.assertThrows(ProductNotFoundException.class, ()->store.getConsumersByProductTitle("ahdlaj"));
+    }
     @Test
     void testGetBoughtProductsByConsumerName() {
         // Создание тестовых данных
@@ -39,10 +48,6 @@ public abstract class IStoreTest {
         Product product = new Product("Apple", 299L);
         Consumer consumer1 = new Consumer("John");
         Consumer consumer2 = new Consumer("Alice");
-
-        BoughtProduct boughtProduct1 = new BoughtProduct(product, consumer1, 299L);
-        BoughtProduct boughtProduct2 = new BoughtProduct(product, consumer2, 299L);
-
         // Добавление купленных продуктов
         store.addProduct(product);
         store.addConsumer(consumer1);
