@@ -26,7 +26,7 @@ public class Consumer {
     /**
      * Имя покупателя
      */
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", nullable = false, unique = true)
     private String name;
     /**
      * Список купленных пользователем товаров
