@@ -19,9 +19,13 @@ public class ProductsRepository implements IProductsRepository {
 
     /**
      * Создаёт экземпляр с заданной EntityManagerFactory
+     *
      * @param emf фабрика, для создания EntityManager
+     * @throws IllegalArgumentException если фабрика null или закрыта
      */
     public ProductsRepository(EntityManagerFactory emf) {
+        if (emf == null || !emf.isOpen())
+            throw new IllegalArgumentException("entity manager factory is null or closed!");
         this.emf = emf;
     }
 
