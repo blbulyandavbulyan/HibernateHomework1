@@ -25,7 +25,13 @@ public class Store implements IStore {
      * Фабрика, с помощью которой будут создаваться EntityManger для управления сущностями в базе
      */
     private final EntityManagerFactory emf;
+    /**
+     * Ссылка на репозиторий для продуктов
+     */
     private final IProductsRepository iProductsRepository;
+    /**
+     * Ссылка не репозиторий для покупателей
+     */
     private final IConsumersRepository iConsumersRepository;
 
     /**
