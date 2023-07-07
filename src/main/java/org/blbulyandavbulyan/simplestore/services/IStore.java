@@ -29,22 +29,6 @@ public interface IStore {
     Collection<Consumer> getConsumersByProductTitle(String title);
 
     /**
-     * Удаляет покупателя
-     * @param name имя покупателя, которого нужно удалить
-     * @return true если такой покупатель был, иначе false
-     * @throws IllegalArgumentException если name null
-     */
-    boolean deleteConsumer(String name);
-
-    /**
-     * Удаляет продукт по названию
-     * @param title название продукта
-     * @return true если такой продукт был, иначе false
-     * @throws IllegalArgumentException если title null
-     */
-    boolean deleteProduct(String title);
-
-    /**
      * Покупает продукт
      * @param consumerId ИД покупателя, который должен купить продукт
      * @param productId ИД продукта, который нужно купить
@@ -54,18 +38,4 @@ public interface IStore {
      * @return купленный продукт
      */
     BoughtProduct buy(Long consumerId, Long productId);
-
-    /**
-     * Добавляет продукт в магазин
-     * @param product продукт, который нужно добавить
-     * @throws IllegalArgumentException если product null
-     */
-    void addProduct(Product product);
-
-    /**
-     * Добавляет покупателя в магазин
-     * @param consumer покупатель, которого нужно добавить
-     * @throws IllegalArgumentException если consumer null
-     */
-    void addConsumer(Consumer consumer);
 }

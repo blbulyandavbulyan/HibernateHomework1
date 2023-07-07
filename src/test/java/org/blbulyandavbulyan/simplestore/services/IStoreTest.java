@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Collection;
 
 public abstract class IStoreTest {
-    protected IStore store;
+    protected Store store;
     @Test
     void getBoughtProductsByConsumerNameShouldThrowExceptionIfConsumerNotExists(){
         Assertions.assertThrows(ConsumerNotFoundException.class, ()->store.getBoughtProductsByConsumerName("Ahalaymahalay"));

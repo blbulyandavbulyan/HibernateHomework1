@@ -17,7 +17,7 @@ import java.util.function.Function;
  * Предоставляет базовую имплементацию интерфейса IStore.
  * Использует EntityManagerFactory для сохранения сущностей в базу
  */
-public class Store implements IStore {
+public class Store implements IStore, IConsumersRepository, IProductsRepository{
     /**
      * Фабрика, с помощью которой будут создаваться EntityManger для управления сущностями в базе
      */
