@@ -1,6 +1,5 @@
 package org.blbulyandavbulyan.simplestore.services;
 
-import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Query;
 import org.blbulyandavbulyan.simplestore.entites.BoughtProduct;
@@ -8,10 +7,12 @@ import org.blbulyandavbulyan.simplestore.entites.Consumer;
 import org.blbulyandavbulyan.simplestore.entites.Product;
 import org.blbulyandavbulyan.simplestore.services.exceptions.ConsumerNotFoundException;
 import org.blbulyandavbulyan.simplestore.services.exceptions.ProductNotFoundException;
+import org.blbulyandavbulyan.simplestore.services.interfaces.IConsumersRepository;
+import org.blbulyandavbulyan.simplestore.services.interfaces.IProductsRepository;
+import org.blbulyandavbulyan.simplestore.services.interfaces.IStore;
 
 import java.util.Collection;
 import java.util.Optional;
-import java.util.function.Function;
 
 import static org.blbulyandavbulyan.simplestore.utils.ORMUtils.runForEntityManager;
 import static org.blbulyandavbulyan.simplestore.utils.ORMUtils.runInTransaction;

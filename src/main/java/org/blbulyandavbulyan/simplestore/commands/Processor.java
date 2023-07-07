@@ -4,7 +4,7 @@ import org.blbulyandavbulyan.simplestore.commands.exceptions.IllegalArgumentCoun
 import org.blbulyandavbulyan.simplestore.commands.exceptions.IllegalArgumentForCommandException;
 import org.blbulyandavbulyan.simplestore.commands.exceptions.IllegalCommandException;
 import org.blbulyandavbulyan.simplestore.entites.Product;
-import org.blbulyandavbulyan.simplestore.services.IStore;
+import org.blbulyandavbulyan.simplestore.services.interfaces.IStore;
 
 import java.io.PrintStream;
 import java.util.Arrays;

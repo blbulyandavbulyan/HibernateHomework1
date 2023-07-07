@@ -1,4 +1,4 @@
-package org.blbulyandavbulyan.simplestore.services;
+package org.blbulyandavbulyan.simplestore.services.interfaces;
 
 import org.blbulyandavbulyan.simplestore.entites.BoughtProduct;
 import org.blbulyandavbulyan.simplestore.entites.Consumer;
