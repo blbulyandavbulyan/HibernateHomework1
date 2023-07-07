@@ -20,8 +20,10 @@ public class ConsumersRepository implements IConsumersRepository {
     /**
      * Создаёт экземпляр репозитория с переданной EntityManagerFactory
      * @param emf фабрика, которая будет использоваться для работы с БД
+     * @throws IllegalArgumentException если фабрика null или закрыта
      */
     public ConsumersRepository(EntityManagerFactory emf) {
+        if(emf == null || !emf.isOpen())throw new IllegalArgumentException("entity manager factory is null or closed!");
         this.emf = emf;
     }
     @Override
