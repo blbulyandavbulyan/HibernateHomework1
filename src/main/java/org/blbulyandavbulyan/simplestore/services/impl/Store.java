@@ -95,7 +95,7 @@ public class Store implements IStore {
     }
 
     @Override
-    public IProductsRepository getProductRepository() {
+    public IProductsRepository getProductsRepository() {
         return iProductsRepository;
     }
 }

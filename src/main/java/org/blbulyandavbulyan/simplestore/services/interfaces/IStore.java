@@ -45,5 +45,5 @@ public interface IStore {
     /**
      * @return экземпляр {@link IProductsRepository}, который связан с данным магазином
      */
-    IProductsRepository getProductRepository();
+    IProductsRepository getProductsRepository();
 }

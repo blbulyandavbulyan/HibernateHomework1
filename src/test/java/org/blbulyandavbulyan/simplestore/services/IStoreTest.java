@@ -27,7 +27,7 @@ public abstract class IStoreTest {
         Consumer consumer = new Consumer("John");
         Product product1 = new Product("Apple", 299L);
         Product product2 = new Product("Banana", 199L);
-        var productRepository = store.getProductRepository();
+        var productRepository = store.getProductsRepository();
         productRepository.addProduct(product1);
         productRepository.addProduct(product2);
         store.getConsumersRepository().addConsumer(consumer);
@@ -49,7 +49,7 @@ public abstract class IStoreTest {
         Consumer consumer1 = new Consumer("John");
         Consumer consumer2 = new Consumer("Alice");
         // Добавление купленных продуктов
-        var productRepository = store.getProductRepository();
+        var productRepository = store.getProductsRepository();
         var consumerRepository = store.getConsumersRepository();
         productRepository.addProduct(product1);
         productRepository.addProduct(product);
