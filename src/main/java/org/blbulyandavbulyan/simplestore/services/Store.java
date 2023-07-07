@@ -13,6 +13,8 @@ import java.util.Collection;
 import java.util.Optional;
 import java.util.function.Function;
 
+import static org.blbulyandavbulyan.simplestore.utils.ORMUtils.runInTransaction;
+
 /**
  * Предоставляет базовую имплементацию интерфейса IStore.
  * Использует EntityManagerFactory для сохранения сущностей в базу
@@ -117,31 +119,6 @@ public class Store implements IStore, IConsumersRepository, IProductsRepository 
             em.persist(consumer);
             return null;
         });
-    }
-
-    /**
-     * Метод запускает функцию в транзакции и передаёт ей созданный EntityManager
-     *
-     * @param emf                   EntityManagerFactory, которая будет использоваться для создания EntityManager
-     * @param transactionalFunction функция, которую нужно выполнить в транзакции
-     * @param <R>                   тип результата функции
-     * @return результат, который вернула функция
-     */
-    private <R> R runInTransaction(EntityManagerFactory emf, Function<EntityManager, R> transactionalFunction) {
-        R result;//результат, который мы отсюда вернём
-        try (EntityManager em = emf.createEntityManager()) {//получаем менеджер сущностей
-            var transaction = em.getTransaction();//получаем транзакцию
-            transaction.begin();//начинаем транзакцию
-            try {
-                result = transactionalFunction.apply(em);//запускаем нашу функцию внутри транзакции
-                transaction.commit();//сюда дошли, значит всё ок, коммитим
-            } catch (Exception throwable) {
-                //если у нас что-то сломалось, откатываем транзакцию
-                transaction.rollback();
-                throw throwable;//бросаем дальше, тут мы это обработать не можем
-            }
-        }
-        return result;
     }
 
     /**
