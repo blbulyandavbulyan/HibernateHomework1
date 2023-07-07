@@ -17,7 +17,7 @@ import java.util.function.Function;
  * Предоставляет базовую имплементацию интерфейса IStore.
  * Использует EntityManagerFactory для сохранения сущностей в базу
  */
-public class Store implements IStore, IConsumersRepository, IProductsRepository{
+public class Store implements IStore, IConsumersRepository, IProductsRepository {
     /**
      * Фабрика, с помощью которой будут создаваться EntityManger для управления сущностями в базе
      */
@@ -25,6 +25,7 @@ public class Store implements IStore, IConsumersRepository, IProductsRepository{
 
     /**
      * Создаёт экземпляр магазина
+     *
      * @param emf EntityManagerFactory, которая будет использоваться магазином
      * @throws IllegalArgumentException если emf null или закрыта
      */
@@ -36,7 +37,7 @@ public class Store implements IStore, IConsumersRepository, IProductsRepository{
 
     @Override
     public Collection<BoughtProduct> getBoughtProductsByConsumerName(String name) {
-        if(name == null)throw new IllegalArgumentException("name is null!");
+        if (name == null) throw new IllegalArgumentException("name is null!");
         return runForEntityManager(em -> {
             var checkExistConsumerQuery = em.createQuery("SELECT COUNT(c) FROM Consumer c WHERE c.name = :name", Long.class);
             checkExistConsumerQuery.setParameter("name", name);
@@ -50,7 +51,7 @@ public class Store implements IStore, IConsumersRepository, IProductsRepository{
 
     @Override
     public Collection<Consumer> getConsumersByProductTitle(String title) {
-        if(title == null)throw new IllegalArgumentException("title is null!");
+        if (title == null) throw new IllegalArgumentException("title is null!");
         return runForEntityManager(em -> {
             var checkExistConsumerQuery = em.createQuery("SELECT COUNT(p) FROM Product p WHERE p.title = :title", Long.class);
             checkExistConsumerQuery.setParameter("title", title);
@@ -64,8 +65,8 @@ public class Store implements IStore, IConsumersRepository, IProductsRepository{
 
     @Override
     public boolean deleteConsumer(String name) {
-        if(name == null)throw new IllegalArgumentException("name is null!");
-        return runInTransaction((em) -> {
+        if (name == null) throw new IllegalArgumentException("name is null!");
+        return runInTransaction(emf, (em) -> {
             Query deleteConsumerQuery = em.createQuery("DELETE FROM Consumer c WHERE c.name = :name");
             int result = deleteConsumerQuery.setParameter("name", name).executeUpdate();
             return result > 0;//если result > 0 значит были затронуты записи запросом
@@ -74,8 +75,8 @@ public class Store implements IStore, IConsumersRepository, IProductsRepository{
 
     @Override
     public boolean deleteProduct(String title) {
-        if(title == null)throw new IllegalArgumentException("title is null!");
-        return runInTransaction((em) -> {
+        if (title == null) throw new IllegalArgumentException("title is null!");
+        return runInTransaction(emf, (em) -> {
             Query deleteProductQuery = em.createQuery("DELETE FROM Product p WHERE p.title = :title");
             int result = deleteProductQuery.setParameter("title", title).executeUpdate();
             return result > 0;//если result > 0 значит были затронуты записи запросом
@@ -84,9 +85,9 @@ public class Store implements IStore, IConsumersRepository, IProductsRepository{
 
     @Override
     public BoughtProduct buy(Long consumerId, Long productId) {
-        if(consumerId == null)throw new IllegalArgumentException("consumerId is null!");
-        if(productId == null)throw new IllegalArgumentException("productId is null!");
-        return runInTransaction((em) -> {
+        if (consumerId == null) throw new IllegalArgumentException("consumerId is null!");
+        if (productId == null) throw new IllegalArgumentException("productId is null!");
+        return runInTransaction(emf, (em) -> {
             Consumer consumer = Optional.ofNullable(em.find(Consumer.class, consumerId))
                     .orElseThrow(() -> new ConsumerNotFoundException("consumer with id" + consumerId + " not found!", consumerId));
             Product product = Optional.ofNullable(em.find(Product.class, productId))
@@ -100,8 +101,8 @@ public class Store implements IStore, IConsumersRepository, IProductsRepository{
 
     @Override
     public void addProduct(Product product) {
-        if(product == null)throw new IllegalArgumentException("product is null!");
-        runInTransaction(em -> {
+        if (product == null) throw new IllegalArgumentException("product is null!");
+        runInTransaction(emf, em -> {
             em.persist(product);
             //Поскольку у нас тип у лямды Function, мы обязательно должны что-то вернуть,
             // возвращаем null, т.к. больше нечего вернуть
@@ -111,21 +112,22 @@ public class Store implements IStore, IConsumersRepository, IProductsRepository{
 
     @Override
     public void addConsumer(Consumer consumer) {
-        if(consumer == null)throw new IllegalArgumentException("consumer is null!");
-        runInTransaction(em -> {
+        if (consumer == null) throw new IllegalArgumentException("consumer is null!");
+        runInTransaction(emf, em -> {
             em.persist(consumer);
             return null;
         });
     }
 
     /**
-     * Метод запускает функцию в транзакции
+     * Метод запускает функцию в транзакции и передаёт ей созданный EntityManager
      *
+     * @param emf                   EntityManagerFactory, которая будет использоваться для создания EntityManager
      * @param transactionalFunction функция, которую нужно выполнить в транзакции
      * @param <R>                   тип результата функции
      * @return результат, который вернула функция
      */
-    private <R> R runInTransaction(Function<EntityManager, R> transactionalFunction) {
+    private <R> R runInTransaction(EntityManagerFactory emf, Function<EntityManager, R> transactionalFunction) {
         R result;//результат, который мы отсюда вернём
         try (EntityManager em = emf.createEntityManager()) {//получаем менеджер сущностей
             var transaction = em.getTransaction();//получаем транзакцию
