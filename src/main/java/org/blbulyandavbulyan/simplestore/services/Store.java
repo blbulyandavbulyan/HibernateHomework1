@@ -13,6 +13,7 @@ import java.util.Collection;
 import java.util.Optional;
 import java.util.function.Function;
 
+import static org.blbulyandavbulyan.simplestore.utils.ORMUtils.runForEntityManager;
 import static org.blbulyandavbulyan.simplestore.utils.ORMUtils.runInTransaction;
 
 /**
@@ -119,19 +120,5 @@ public class Store implements IStore, IConsumersRepository, IProductsRepository 
             em.persist(consumer);
             return null;
         });
-    }
-
-    /**
-     * Функция запускает переданную ей функцию и передаёт в неё EntityManager
-     * Данная функция сама закроет созданный её EntityManager
-     * @param emf фабрика, которая будет использоваться для создания EntityManager
-     * @param entityMangerAcceptor функция, принимающая EntityManger
-     * @param <R>                  тип результата, который должна вернуть функция
-     * @return результат типа R, который вернула функция entityMangerAcceptor
-     */
-    private <R> R runForEntityManager(EntityManagerFactory emf, Function<EntityManager, R> entityMangerAcceptor) {
-        try (EntityManager em = emf.createEntityManager()) {//получаем менеджер сущностей
-            return entityMangerAcceptor.apply(em);
-        }
     }
 }
