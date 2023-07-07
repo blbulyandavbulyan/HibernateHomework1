@@ -8,9 +8,19 @@ import org.blbulyandavbulyan.simplestore.services.interfaces.IProductsRepository
 import static org.blbulyandavbulyan.simplestore.utils.ORMUtils.runForEntityManager;
 import static org.blbulyandavbulyan.simplestore.utils.ORMUtils.runInTransaction;
 
+/**
+ * Предоставляет {@link IProductsRepository}, используя для своей работы EntityManagerFactory
+ */
 public class ProductsRepository implements IProductsRepository {
+    /**
+     * Фабрика EntityManager, которая будет использоваться для работы с БД
+     */
     private final EntityManagerFactory emf;
 
+    /**
+     * Создаёт экземпляр с заданной EntityManagerFactory
+     * @param emf фабрика, для создания EntityManager
+     */
     public ProductsRepository(EntityManagerFactory emf) {
         this.emf = emf;
     }
