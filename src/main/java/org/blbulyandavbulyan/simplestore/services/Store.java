@@ -40,7 +40,7 @@ public class Store implements IStore, IConsumersRepository, IProductsRepository 
     @Override
     public Collection<BoughtProduct> getBoughtProductsByConsumerName(String name) {
         if (name == null) throw new IllegalArgumentException("name is null!");
-        return runForEntityManager(em -> {
+        return runForEntityManager(emf, em -> {
             var checkExistConsumerQuery = em.createQuery("SELECT COUNT(c) FROM Consumer c WHERE c.name = :name", Long.class);
             checkExistConsumerQuery.setParameter("name", name);
             if (checkExistConsumerQuery.getSingleResult() > 0) {
@@ -54,7 +54,7 @@ public class Store implements IStore, IConsumersRepository, IProductsRepository 
     @Override
     public Collection<Consumer> getConsumersByProductTitle(String title) {
         if (title == null) throw new IllegalArgumentException("title is null!");
-        return runForEntityManager(em -> {
+        return runForEntityManager(emf, em -> {
             var checkExistConsumerQuery = em.createQuery("SELECT COUNT(p) FROM Product p WHERE p.title = :title", Long.class);
             checkExistConsumerQuery.setParameter("title", title);
             if (checkExistConsumerQuery.getSingleResult() > 0) {
@@ -124,12 +124,12 @@ public class Store implements IStore, IConsumersRepository, IProductsRepository 
     /**
      * Функция запускает переданную ей функцию и передаёт в неё EntityManager
      * Данная функция сама закроет созданный её EntityManager
-     *
+     * @param emf фабрика, которая будет использоваться для создания EntityManager
      * @param entityMangerAcceptor функция, принимающая EntityManger
      * @param <R>                  тип результата, который должна вернуть функция
      * @return результат типа R, который вернула функция entityMangerAcceptor
      */
-    private <R> R runForEntityManager(Function<EntityManager, R> entityMangerAcceptor) {
+    private <R> R runForEntityManager(EntityManagerFactory emf, Function<EntityManager, R> entityMangerAcceptor) {
         try (EntityManager em = emf.createEntityManager()) {//получаем менеджер сущностей
             return entityMangerAcceptor.apply(em);
         }
