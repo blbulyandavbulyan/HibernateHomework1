@@ -2,6 +2,7 @@ package org.blbulyandavbulyan.simplestore.services;
 
 import jakarta.persistence.EntityManagerFactory;
 import org.blbulyandavbulyan.simplestore.entites.Product;
+import org.blbulyandavbulyan.simplestore.services.impl.ProductsRepository;
 import org.blbulyandavbulyan.simplestore.services.interfaces.IProductsRepository;
 import org.blbulyandavbulyan.simplestore.utils.ORMUtils;
 import org.junit.jupiter.api.Assertions;

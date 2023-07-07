@@ -1,11 +1,9 @@
 package org.blbulyandavbulyan.simplestore.services;
 
 import jakarta.persistence.EntityManagerFactory;
+import org.blbulyandavbulyan.simplestore.services.impl.Store;
 import org.blbulyandavbulyan.simplestore.utils.ORMUtils;
 import org.junit.jupiter.api.BeforeEach;
-
-import java.io.IOException;
-import java.net.URISyntaxException;
 
 import static org.blbulyandavbulyan.simplestore.utils.SetupDatabase.createTables;
 import static org.blbulyandavbulyan.simplestore.utils.SetupDatabase.dropTables;

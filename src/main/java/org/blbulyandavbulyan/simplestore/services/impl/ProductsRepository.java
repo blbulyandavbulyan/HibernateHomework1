@@ -1,4 +1,4 @@
-package org.blbulyandavbulyan.simplestore.services;
+package org.blbulyandavbulyan.simplestore.services.impl;
 
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Query;
