@@ -10,22 +10,22 @@ import org.junit.jupiter.api.Test;
 import static org.blbulyandavbulyan.simplestore.utils.SetupDatabase.createTables;
 import static org.blbulyandavbulyan.simplestore.utils.SetupDatabase.dropTables;
 
-public class ConsumerRepositoryTest {
+public class ConsumersRepositoryTest {
     private final static EntityManagerFactory emf = ORMUtils.createEntityManagerFactory();
-    private ConsumerRepository consumerRepository;
+    private ConsumersRepository consumersRepository;
     @BeforeEach void setUp(){
         dropTables(emf);
         createTables(emf);
-        consumerRepository = new ConsumerRepository(emf);
+        consumersRepository = new ConsumersRepository(emf);
     }
     @Test
     void testDeleteConsumer() {
         // Создание тестовых данных
         Consumer consumer = new Consumer("John");
         // Добавление покупателя
-        consumerRepository.addConsumer(consumer);
+        consumersRepository.addConsumer(consumer);
         // Выполнение метода, который тестируем
-        boolean result = consumerRepository.deleteConsumer("John");
+        boolean result = consumersRepository.deleteConsumer("John");
         // Проверка результатов
         Assertions.assertTrue(result);
         // TODO: 06.07.2023 добавить проверку что такой consumer удалился из магазина

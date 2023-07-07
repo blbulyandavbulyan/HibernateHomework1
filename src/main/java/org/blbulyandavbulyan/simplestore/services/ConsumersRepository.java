@@ -8,9 +8,9 @@ import org.blbulyandavbulyan.simplestore.services.interfaces.IConsumersRepositor
 import static org.blbulyandavbulyan.simplestore.utils.ORMUtils.runForEntityManager;
 import static org.blbulyandavbulyan.simplestore.utils.ORMUtils.runInTransaction;
 
-public class ConsumerRepository implements IConsumersRepository {
+public class ConsumersRepository implements IConsumersRepository {
     private final EntityManagerFactory emf;
-    public ConsumerRepository(EntityManagerFactory emf) {
+    public ConsumersRepository(EntityManagerFactory emf) {
         this.emf = emf;
     }
     @Override
