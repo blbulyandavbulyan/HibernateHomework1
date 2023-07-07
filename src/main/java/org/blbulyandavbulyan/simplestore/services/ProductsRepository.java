@@ -5,13 +5,16 @@ import jakarta.persistence.Query;
 import org.blbulyandavbulyan.simplestore.entites.Product;
 import org.blbulyandavbulyan.simplestore.services.interfaces.IProductsRepository;
 
+import static org.blbulyandavbulyan.simplestore.utils.ORMUtils.runForEntityManager;
 import static org.blbulyandavbulyan.simplestore.utils.ORMUtils.runInTransaction;
 
 public class ProductsRepository implements IProductsRepository {
     private final EntityManagerFactory emf;
+
     public ProductsRepository(EntityManagerFactory emf) {
         this.emf = emf;
     }
+
     @Override
     public void addProduct(Product product) {
         if (product == null) throw new IllegalArgumentException("product is null!");
@@ -22,6 +25,7 @@ public class ProductsRepository implements IProductsRepository {
             return null;
         });
     }
+
     @Override
     public boolean deleteProduct(String title) {
         if (title == null) throw new IllegalArgumentException("title is null!");
@@ -29,6 +33,15 @@ public class ProductsRepository implements IProductsRepository {
             Query deleteProductQuery = em.createQuery("DELETE FROM Product p WHERE p.title = :title");
             int result = deleteProductQuery.setParameter("title", title).executeUpdate();
             return result > 0;//если result > 0 значит были затронуты записи запросом
+        });
+    }
+
+    @Override
+    public boolean existsByTitle(String title) {
+        return runForEntityManager(emf, em -> {
+            var checkExistConsumerQuery = em.createQuery("SELECT COUNT(p) FROM Product p WHERE p.title = :title", Long.class);
+            checkExistConsumerQuery.setParameter("title", title);
+            return checkExistConsumerQuery.getSingleResult() > 0;
         });
     }
 }

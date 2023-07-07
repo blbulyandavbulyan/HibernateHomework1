@@ -20,4 +20,10 @@ public interface IProductsRepository {
      */
     boolean deleteProduct(String title);
 
+    /**
+     * Проверяет, существует ли продукт с таким названием
+     * @param title название продукта для проверки на существование
+     * @return true если да, иначе false
+     */
+    boolean existsByTitle(String title);
 }
