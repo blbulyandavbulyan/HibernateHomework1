@@ -90,7 +90,7 @@ public class Store implements IStore {
     }
 
     @Override
-    public IConsumersRepository getConsumerRepository() {
+    public IConsumersRepository getConsumersRepository() {
         return iConsumersRepository;
     }
 

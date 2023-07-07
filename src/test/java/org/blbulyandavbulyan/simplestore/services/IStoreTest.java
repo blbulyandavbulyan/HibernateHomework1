@@ -30,7 +30,7 @@ public abstract class IStoreTest {
         var productRepository = store.getProductRepository();
         productRepository.addProduct(product1);
         productRepository.addProduct(product2);
-        store.getConsumerRepository().addConsumer(consumer);
+        store.getConsumersRepository().addConsumer(consumer);
         BoughtProduct boughtProduct1 = store.buy(consumer.getId(), product1.getId());
         BoughtProduct boughtProduct2 = store.buy(consumer.getId(), product2.getId());
         // Выполнение метода, который тестируем
@@ -50,7 +50,7 @@ public abstract class IStoreTest {
         Consumer consumer2 = new Consumer("Alice");
         // Добавление купленных продуктов
         var productRepository = store.getProductRepository();
-        var consumerRepository = store.getConsumerRepository();
+        var consumerRepository = store.getConsumersRepository();
         productRepository.addProduct(product1);
         productRepository.addProduct(product);
         consumerRepository.addConsumer(consumer1);
