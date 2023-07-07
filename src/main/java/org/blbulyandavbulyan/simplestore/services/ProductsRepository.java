@@ -7,9 +7,9 @@ import org.blbulyandavbulyan.simplestore.services.interfaces.IProductsRepository
 
 import static org.blbulyandavbulyan.simplestore.utils.ORMUtils.runInTransaction;
 
-public class ProductRepository implements IProductsRepository {
+public class ProductsRepository implements IProductsRepository {
     private final EntityManagerFactory emf;
-    public ProductRepository(EntityManagerFactory emf) {
+    public ProductsRepository(EntityManagerFactory emf) {
         this.emf = emf;
     }
     @Override

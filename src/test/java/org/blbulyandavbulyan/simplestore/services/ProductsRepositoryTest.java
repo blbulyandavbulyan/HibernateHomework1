@@ -11,14 +11,14 @@ import org.junit.jupiter.api.Test;
 import static org.blbulyandavbulyan.simplestore.utils.SetupDatabase.createTables;
 import static org.blbulyandavbulyan.simplestore.utils.SetupDatabase.dropTables;
 
-public class ProductRepositoryTest {
+public class ProductsRepositoryTest {
     private IProductsRepository iProductsRepository;
     private final static EntityManagerFactory emf = ORMUtils.createEntityManagerFactory();
     @BeforeEach
     void setUp() {
         dropTables(emf);
         createTables(emf);
-        iProductsRepository = new ProductRepository(emf);
+        iProductsRepository = new ProductsRepository(emf);
     }
     @Test
     void testDeleteProduct() {
