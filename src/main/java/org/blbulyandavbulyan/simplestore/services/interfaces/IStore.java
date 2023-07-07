@@ -2,7 +2,6 @@ package org.blbulyandavbulyan.simplestore.services.interfaces;
 
 import org.blbulyandavbulyan.simplestore.entites.BoughtProduct;
 import org.blbulyandavbulyan.simplestore.entites.Consumer;
-import org.blbulyandavbulyan.simplestore.entites.Product;
 
 import java.util.Collection;
 
@@ -38,4 +37,13 @@ public interface IStore {
      * @return купленный продукт
      */
     BoughtProduct buy(Long consumerId, Long productId);
+
+    /**
+     * @return экземпляр {@link IConsumersRepository}, который связан с данным магазином
+     */
+    IConsumersRepository getConsumerRepository();
+    /**
+     * @return экземпляр {@link IProductsRepository}, который связан с данным магазином
+     */
+    IProductsRepository getProductRepository();
 }

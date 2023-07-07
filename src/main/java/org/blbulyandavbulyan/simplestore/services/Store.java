@@ -88,4 +88,14 @@ public class Store implements IStore {
             return boughtProduct;
         });
     }
+
+    @Override
+    public IConsumersRepository getConsumerRepository() {
+        return iConsumersRepository;
+    }
+
+    @Override
+    public IProductsRepository getProductRepository() {
+        return iProductsRepository;
+    }
 }
