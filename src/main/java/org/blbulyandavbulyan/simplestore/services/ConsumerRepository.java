@@ -5,6 +5,7 @@ import jakarta.persistence.Query;
 import org.blbulyandavbulyan.simplestore.entites.Consumer;
 import org.blbulyandavbulyan.simplestore.services.interfaces.IConsumersRepository;
 
+import static org.blbulyandavbulyan.simplestore.utils.ORMUtils.runForEntityManager;
 import static org.blbulyandavbulyan.simplestore.utils.ORMUtils.runInTransaction;
 
 public class ConsumerRepository implements IConsumersRepository {
@@ -20,6 +21,16 @@ public class ConsumerRepository implements IConsumersRepository {
             return null;
         });
     }
+
+    @Override
+    public boolean existsByName(String name) {
+        return runForEntityManager(emf, (em)->{
+            var checkExistConsumerQuery = em.createQuery("SELECT COUNT(c) FROM Consumer c WHERE c.name = :name", Long.class);
+            checkExistConsumerQuery.setParameter("name", name);
+            return checkExistConsumerQuery.getSingleResult() > 0;
+        });
+    }
+
     @Override
     public boolean deleteConsumer(String name) {
         if (name == null) throw new IllegalArgumentException("name is null!");

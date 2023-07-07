@@ -20,4 +20,10 @@ public interface IConsumersRepository {
      */
     void addConsumer(Consumer consumer);
 
+    /**
+     * Проверяет, существует ли покупатель с заданным именем
+     * @param name имя покупателя, которого нужно проверить на существование
+     * @return true если такой покупатель существует, иначе false
+     */
+    boolean existsByName(String name);
 }
