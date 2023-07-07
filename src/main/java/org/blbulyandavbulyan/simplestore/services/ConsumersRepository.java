@@ -8,8 +8,19 @@ import org.blbulyandavbulyan.simplestore.services.interfaces.IConsumersRepositor
 import static org.blbulyandavbulyan.simplestore.utils.ORMUtils.runForEntityManager;
 import static org.blbulyandavbulyan.simplestore.utils.ORMUtils.runInTransaction;
 
+/**
+ * Предоставляет реализацию {@link IConsumersRepository} используя для работы с БД EntityManagerFactory
+ */
 public class ConsumersRepository implements IConsumersRepository {
+    /**
+     * Фабрика EntityManager, переданная в конструкторе
+     */
     private final EntityManagerFactory emf;
+
+    /**
+     * Создаёт экземпляр репозитория с переданной EntityManagerFactory
+     * @param emf фабрика, которая будет использоваться для работы с БД
+     */
     public ConsumersRepository(EntityManagerFactory emf) {
         this.emf = emf;
     }
