@@ -14,15 +14,40 @@ import java.util.function.Supplier;
  * Данный класс предоставляет обработчик текстовых команд для IStore
  */
 public class Processor {
-
+    /**
+     * Магазин, с которым будет взаимодействовать данный обработчик команд
+     */
     private final IStore iStore;
+
+    /**
+     * Поток, куда данный обработчик команд будет печатать результат работы команд
+     */
     private final PrintStream ps;
 
+    /**
+     * Создаёт экземпляр обработчика команд
+     *
+     * @param iStore магазин, с которым данный обработчик команд будет взаимодействовать
+     * @param ps     поток, куда данный обработчик команд будет печатать результаты
+     */
     public Processor(IStore iStore, PrintStream ps) {
         this.iStore = iStore;
         this.ps = ps;
     }
 
+    /**
+     * Метод обрабатывает переданную обработчику команду<br>
+     * Доступные команды:<br>
+     * <ul>
+     *     <li>/showProductsByConsumer имя_покупателя - печатает в консоль товары, которые приобрел покупатель, по имени покупателя</li>
+     *     <li>/showConsumersByProductTitle название_товара - печатает имена покупателей, купивших указанный товар, по названию товара</li>
+     *     <li>/deleteConsumer имя_покупателя - удаляет из базы покупателей по имени</li>
+     *     <li>/deleteProduct название_продукта - удаляет из базы товар по названию</li>
+     *     <li>/buy id_покупателя id_товара - предоставляет возможность “покупки товара” по id покупателя и товара.</li>
+     * </ul>
+     *
+     * @param commandForParsing команда, которую нужно обработать
+     */
     public void processCommand(String commandForParsing) {
         String[] splitCommand = Arrays.stream(commandForParsing.split(" ")).filter(s -> !s.isBlank()).toArray(String[]::new);
         String action = splitCommand[0];
@@ -57,11 +82,25 @@ public class Processor {
         }
     }
 
+    /**
+     * Данный метод проверяет длину массива на корректность
+     * @param arr массив, длину которого нужно проверить
+     * @param requiredLength необходимая длина
+     * @throws IllegalArgumentCountException если длинна массива неверная
+     */
     private void throwIfInvalidLength(String[] arr, int requiredLength) {
         if (arr.length != requiredLength)
             throw new IllegalArgumentCountException("Неверное количество частей команды, должно быть " + requiredLength);
     }
 
+    /**
+     * Данный метод пытается превратить строку в число Long
+     * @param l строка, которую нужно преобразовать
+     * @param throwableSupplier поставщик исключения, которое будет выброшено в случае если не удалось превратить строку в число
+     * @return число типа Long, полученное из переданной строки
+     * @param <T> тип исключения, которое будет выброшено из данного метода, полученное из throwableSupplier
+     * @throws T в случае если не удалось преобразовать строку в число
+     */
     private <T extends Throwable> Long getLongFromStringOrThrow(String l, Supplier<T> throwableSupplier) throws T {
         try {
             return Long.parseLong(l);
