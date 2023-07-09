@@ -6,6 +6,9 @@ import org.hibernate.cfg.Configuration;
 
 import java.util.function.Function;
 
+/**
+ * Данный класс предоставляет некоторый удобный набор функций для работы с EntityManagerFactory и EntityManger
+ */
 public class ORMUtils {
     public static EntityManagerFactory createEntityManagerFactory(){
         return new Configuration().configure("configs/hibernate.cfg.xml").buildSessionFactory();
