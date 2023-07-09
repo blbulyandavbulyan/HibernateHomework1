@@ -39,13 +39,11 @@ public class Processor {
             }
             case "/deleteConsumer" -> {
                 throwIfInvalidLength(splitCommand, 2);
-//                ps.println(iStore.deleteConsumer(splitCommand[1]) ? "удалено" : "запись не найдена");
-                // FIXME: 07.07.2023 исправить это, тут нужно прокинуть соотвествующий репозиторий
+                ps.println(iStore.getConsumersRepository().deleteConsumer(splitCommand[1]) ? "удалено" : "запись не найдена");
             }
             case "/deleteProduct" -> {
                 throwIfInvalidLength(splitCommand, 2);
-//                ps.println(iStore.deleteProduct(splitCommand[1]) ? "удалено" : "запись не найдена");
-                // FIXME: 07.07.2023 исправить это, тут нужно прокинуть соотвествующий репозиторий
+                ps.println(iStore.getProductsRepository().deleteProduct(splitCommand[1]) ? "удалено" : "запись не найдена");
             }
             case "/buy" -> {
                 throwIfInvalidLength(splitCommand, 3);
